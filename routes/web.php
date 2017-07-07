@@ -10,7 +10,35 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Product;
+use Illuminate\Http\Request;
 
-Route::get('/', function () {
+
+
+// Route::get('/', function () 
+// {
+//     return view('welcome',[
+//     	'name' => 'Product'
+//     	]);
+// });
+
+
+
+
+Route::get('/', function ()
+{
     return view('welcome');
+
+
 });
+
+
+//Route::get('/product', 'ProductController@index');
+//Route::post('/product', 'ProductController@store');
+// 
+
+
+//Route::get('auth/index', 'Auth\AuthController@get');
+
+
+//};
