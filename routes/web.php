@@ -10,8 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Customers;
-use Illuminate\Http\Request;
 
 
 
@@ -20,13 +18,13 @@ use Illuminate\Http\Request;
 //     return view('customer.create');
 // });
 
-Route::get('customer/', 'CustomersController@index');
-Route::get('customer/create', 'CustomersController@create');
-Route::post('customer/', 'CustomersController@store');
-Route::get('customer/{id}/edit', 'CustomersController@edit');
-Route::put('customer/{id}', 'CustomersController@update');
-Route::get('customer/{id}/show', 'CustomersController@show');
-Route::delete('customer/{id}', 'CustomersController@destroy');
+Route::get('customer/', '\App\Http\Controllers\CustomersController@index');
+Route::get('customer/create', '\App\Http\Controllers\CustomersController@create');
+Route::post('customer/', '\App\Http\Controllers\CustomersController@store');
+Route::get('customer/{id}/edit', '\App\Http\Controllers\CustomersController@edit');
+Route::put('customer/{id}', '\App\Http\Controllers\CustomersController@update');
+Route::get('customer/{id}/show', '\App\Http\Controllers\CustomersController@show');
+Route::delete('customer/{id}', '\App\Http\Controllers\CustomersController@destroy');
 
 
 

@@ -18,6 +18,7 @@
 			
 	    		 <form class="form-horizontal" method="POST" action="{{ url('customer/'.$customer->id) }}">
                         {{ csrf_field() }}
+	    			
 	    			<input name="_method" type="hidden" value="PUT">
 	    				<tr>
 	    					<td class="table-text">
@@ -83,9 +84,9 @@
 
 	    						<div class="form-group">
                            			 <div class="col-md-6 col-md-offset-4">
-                                		<button type="submit" class="btn btn-primary">
-                                   			 Update
-                                		</button>
+                                		
+                                		<button type="submit" class="btn btn-primary"> Update</button>                         	 
+                                		
                             		</div>
           				  		</div>
 

@@ -24,7 +24,7 @@
                                 </td>
 
                                 <td>
-                                    <a href="/customer/{{$customer['id']}}/edit" class="btn btl-primary">Edit</a>
+                                    <a href="/customer/{{$customer['id']}}/edit" class="btn btl-primary"> Edit </a>
                                 </td>
 
                                 <td>
