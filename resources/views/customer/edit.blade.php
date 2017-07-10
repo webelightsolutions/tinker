@@ -23,7 +23,7 @@
 	    				<tr>
 	    					<td class="table-text">
 
-                           		<label for="name" class="col-md-4 control-label">Name</label>
+                           		<label for="name" class="col-md-4 control-label"> Name </label>
 
                             		<div class="col-md-6">
                                 		<input id="name" type="text" class="form-control" name="name" value="{{ $customer->name }}" required autofocus>
@@ -40,7 +40,7 @@
 	    					<td class="table-text">
 
 	  
-                           		<label for="email" class="col-md-4 control-label">email</label>
+                           		<label for="email" class="col-md-4 control-label"> email </label>
 
                             		<div class="col-md-6">
 
@@ -85,7 +85,7 @@
 	    						<div class="form-group">
                            			 <div class="col-md-6 col-md-offset-4">
                                 		
-                                		<button type="submit" class="btn btn-primary"> Update</button>                         	 
+                                		<button type="submit" class="btn btn-primary"> Update </button>                         	 
                                 		
                             		</div>
           				  		</div>
