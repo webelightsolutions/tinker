@@ -38,20 +38,19 @@ Route::delete('customer/{id}', '\App\Http\Controllers\CustomersController@destro
 
 
 Route::get('product', '\App\Http\Controllers\ProductsController@index');
-
 Route::get('product/create', '\App\Http\Controllers\ProductsController@create'); 
 Route::get('product/{edit}/edit', '\App\Http\Controllers\ProductsController@edit'); 
 Route::post('product/store', '\App\Http\Controllers\ProductsController@store'); 
 Route::delete('product/{products}', '\App\Http\Controllers\ProductsController@destroy');
 Route::put('product/{id}', '\App\Http\Controllers\ProductsController@update'); 
-Route::get('product/{id}/show', '\App\Http\Controllers\ProductsController@update');
+Route::get('product/{id}/show', '\App\Http\Controllers\ProductsController@show');
 
 
 
  // Route::get('{id}', 'ProductController@show');
  // Route::post('{id}', 'ProductController@show');
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
 
-});
+// });
