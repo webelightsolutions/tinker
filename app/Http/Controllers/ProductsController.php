@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-
-
 use App\Http\Controllers\Controller;
 use App\Product;
 
@@ -18,7 +15,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-         $products= Product::orderBy('id','DESC')->paginate(10);
+        $products = Product::orderBy('id','DESC')->paginate(10);
+
         return view('products.index',compact('products'));
            
     }
@@ -42,12 +40,13 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-             $this->validate($request, [
+        $this->validate($request, [
             'name' => 'required',
             'details' => 'required',
         ]);
 
-       Product::create($request->all());
+        Product::create($request->all());
+
         return redirect('product');
                          
     }
@@ -60,7 +59,8 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product= Product::find($id);
+        Product::find($id);
+
         return view('products.show',compact('product'));
        // return redirect('product.show');
     }
@@ -73,8 +73,17 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-         $product= Product::find($id);
+        $product = Product::find($id);
+
+        if ($product){
+
             return view('products.edit',compact('product'));
+
+        }else{
+
+            return "Product you want to edit doesn't exiets"
+        }
+        
     }
 
     /**
@@ -91,7 +100,8 @@ class ProductsController extends Controller
             'details' => 'required',
         ]);
 
-          Product::find($id)->update($request->all());
+        Product::find($id)->update($request->all());
+
         return redirect()->route('products.index');
                        
     }
@@ -103,7 +113,8 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        Product::find($id)->delete();
+        Product::findOrFail($id)->delete();
+        
         return redirect('product');
     }
 }
