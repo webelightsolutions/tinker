@@ -11,7 +11,7 @@
             <?php
 
             
-                echo "<strong><h1>Product Details</h1></strong>";
+                echo "<strong><h1>Customer Details</h1></strong>";
             
             ?>
  

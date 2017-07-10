@@ -10,32 +10,27 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Product;
+use App\Customers;
 use Illuminate\Http\Request;
 
 
 
-// Route::get('/', function () 
+// Route::get('customer/', function () 
 // {
-//     return view('welcome',[
-//     	'name' => 'Product'
-//     	]);
+//     return view('customer.create');
 // });
 
+Route::get('customer/', 'CustomersController@index');
+Route::get('customer/create', 'CustomersController@create');
+Route::post('customer/', 'CustomersController@store');
+Route::get('customer/{id}/edit', 'CustomersController@edit');
+Route::put('customer/{id}', 'CustomersController@update');
+Route::get('customer/{id}/show', 'CustomersController@show');
+Route::delete('customer/{id}', 'CustomersController@destroy');
 
 
 
-Route::get('/', function ()
-{
-    return view('welcome');
 
-
-});
-
-
-//Route::get('/product', 'ProductController@index');
-//Route::post('/product', 'ProductController@store');
-// 
 
 
 //Route::get('auth/index', 'Auth\AuthController@get');

@@ -1,13 +1,11 @@
-@extends('layouts.app')
 
-@section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Customer Registeration</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ url('customer/create') }}">
+                    <form class="form-horizontal" method="POST" action="{{ url('customer') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -57,6 +55,14 @@
 
                             <div class="col-md-6">
                                 <input id="address" type="textarea" class="form-control" name="address" required>
+
+                                @if ($errors->has('address'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('address') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                             </div>
                         </div>
 
@@ -73,4 +79,4 @@
         </div>
     </div>
 </div>
-@endsection
+
