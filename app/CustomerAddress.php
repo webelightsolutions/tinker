@@ -17,3 +17,4 @@ class CustomerAddress extends Model
     	return $this->belongsTo('Customer','customer_id');
     }
 }
+
