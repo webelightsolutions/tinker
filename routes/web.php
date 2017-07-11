@@ -54,3 +54,7 @@ Route::get('product/{id}/show', '\App\Http\Controllers\ProductsController@show')
 //     return view('welcome');
 
 // });
+
+
+//CustomerAddressesController Routes List
+
