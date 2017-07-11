@@ -96,13 +96,14 @@ class CustomersController extends Controller
     {   
         $validator = Validator::make($request->all(), [
 
-        'name' => 'required',
+        'name' => 'required|max:255',
 
-        'email' => 'required',
+        'email' => 'required|email',
 
-        'contact_number' => 'required',
+        'contact_number' => 'required|max:10',
 
-        'address' => 'required',
+        'address' => 'required|max:200',
+
         ]);
 
         $customers = Customer::findOrFail($id);
