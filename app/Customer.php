@@ -13,7 +13,7 @@ class Customer extends Model
 
     public function customerAddresses(){
     	
-    	return $this->hasMany('CustomerAddress');
+    	return $this->hasMany('\App\CustomerAddress');
     }
 
 
