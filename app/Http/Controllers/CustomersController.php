@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use App\Customer;
+use App\customerAddress;
 use Illuminate\Support\Facades\Validator;
 
 class CustomersController extends Controller
@@ -16,8 +17,8 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        $customers = Customer::get()->toArray();
-        return view('customer.index',compact('customers'));
+        $customers = Customer::with('customerAddresses')->get()->toArray();
+        dd($customers);
     }
 
     /**
@@ -58,8 +59,10 @@ class CustomersController extends Controller
 
        Customer::create($request->all());
 
-       return redirect ('customer/create');
-    }
+        return redirect ('customer/create');
+
+       
+     }
 
     /**
      * Display the specified resource.
