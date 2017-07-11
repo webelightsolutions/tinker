@@ -11,4 +11,5 @@ class CustomerAddresses extends Model
     	'customer_id' , 'full_name' , 'contact_no' , 'address'
 
     ];
+    
 }

@@ -50,7 +50,7 @@ Route::get('product/{id}/show', '\App\Http\Controllers\ProductsController@show')
  // Route::get('{id}', 'ProductController@show');
  // Route::post('{id}', 'ProductController@show');
 
-// Route::get('/', function () {
+// Route::get('/test', function () {
 //     return view('welcome');
-
 // });
+Route::get('/test','\App\Http\Controllers\OrdersController@index');

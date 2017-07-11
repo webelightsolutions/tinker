@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -13,7 +15,11 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        //
+       
+        $orders = Order::with('customer')->get()->toArray();
+        dd($orders);
+
+        return view('order.index',compact('orders'));
     }
 
     /**
@@ -34,7 +40,45 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    
+    //add new order for customer 
+        $order = new App\Order(['message' => 'New']);
+
+        $customer = App\Customer::find(1);
+
+        $customer->orders()->save($order);
+
+    //add multiple order for customer
+        $customer = App\Customer::find(1);
+
+        $customer->orders()->saveMany([
+        new App\Order(['message' => 'A new order.']),
+        new App\Order(['message' => 'Another order']),
+        ]);
+
+
+    //add new order for customer with use of array in create method
+        $customer = App\Customer::find(1);
+
+        $order = $customer->orders()->create([
+             'message' => 'A new orders.',
+        ]);
+
+    //add multiple order for customer with use of array in create mehtod
+
+        $customer = App\Customer::find(1);
+
+        $customer->orders()->createMany([
+        [
+            'message' => 'A new order.',
+        ],
+         
+        [
+            'message' => 'Another new order.',
+        ],
+
+        ]);
+
     }
 
     /**

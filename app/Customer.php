@@ -10,4 +10,8 @@ class Customer extends Model
         'name', 'email', 'contact_number','address'
     ];
 
+    public function orders()
+    {
+    	return $this->hasMany('Order');
+    }
 }
