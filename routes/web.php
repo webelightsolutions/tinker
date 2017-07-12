@@ -53,11 +53,4 @@ Route::get('product/{id}/show', '\App\Http\Controllers\ProductsController@show')
 // Route::get('/test', function () {
 //     return view('welcome');
 // });
-<<<<<<< HEAD
 
-
-//CustomerAddressesController Routes List
-
-=======
-Route::get('/test','\App\Http\Controllers\OrdersController@index');
->>>>>>> 213d858e4228a1937b7a9ed7670b2da803e1bea8
