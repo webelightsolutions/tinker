@@ -13,7 +13,9 @@ class LookupsController extends Controller
      */
     public function index()
     {
-        //
+        $lookups = Lookup::with('type_id','name')->get()->toArray();
+        dd($lookups);
+        return view('lookups.index',compact('lookups'));
     }
 
     /**
@@ -23,7 +25,7 @@ class LookupsController extends Controller
      */
     public function create()
     {
-        //
+        return view('lookup.create');
     }
 
     /**
@@ -34,7 +36,19 @@ class LookupsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validator = Validator::make($request->all(),[
+
+            'type_id' => 'required',
+
+            'name' => 'required',
+
+            ]);
+
+        Lookup::create($request->all());
+
+       return redirect ('lookup.create');
+
     }
 
     /**
@@ -45,7 +59,8 @@ class LookupsController extends Controller
      */
     public function show($id)
     {
-        //
+        $lookup = Lookup::findOrFail($id);
+        return view('lookup.show', compact('lookup'));
     }
 
     /**
@@ -56,7 +71,8 @@ class LookupsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lookup = Lookup::findOrFail($id);
+        return view('lookup.edit', compact('lookup'));
     }
 
     /**
@@ -68,7 +84,22 @@ class LookupsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+
+            'type_id' => 'required',
+
+            'name' => 'required',
+
+            'value' => 'require'
+
+            ]);
+
+        $lookups = Lookup::findOrFail($id);
+        if($lookups)
+        {
+            $lookups->fill($request->all);
+            $lookups->save();
+        }
     }
 
     /**
@@ -79,6 +110,7 @@ class LookupsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Lookup::where('id',$id)->delete();
+        return redirect('lookup');
     }
 }

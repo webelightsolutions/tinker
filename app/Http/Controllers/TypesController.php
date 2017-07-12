@@ -13,7 +13,9 @@ class TypesController extends Controller
      */
     public function index()
     {
-        //
+        $types = Type::with('name','alias')->get()->toArray();
+        
+        return view('types.index',compact('types'));
     }
 
     /**
@@ -23,7 +25,7 @@ class TypesController extends Controller
      */
     public function create()
     {
-        //
+        return view('type.create');
     }
 
     /**
@@ -34,8 +36,26 @@ class TypesController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+
+        $lookup = new App\Lookup();
+
+        $type = App\Type::find(1);
+
+        $type->lookups()->save($lookup);
+
+    //     $validator = Validator::make($request->all(),[
+
+    //         'name' => 'required',
+
+    //         'alias' => 'required',
+
+    //         ]);
+
+    //     Type::create($request->all());
+
+    //    return redirect ('type.create');
+
+    // }
 
     /**
      * Display the specified resource.
@@ -45,7 +65,8 @@ class TypesController extends Controller
      */
     public function show($id)
     {
-        //
+        $type = Type::findOrFail($id);
+        return view('type.show', compact('type'));
     }
 
     /**
@@ -56,7 +77,8 @@ class TypesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $type = Type::findOrFail($id);
+        return view('type.edit', compact('type'));
     }
 
     /**
@@ -68,7 +90,20 @@ class TypesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+
+            'name' => 'required',
+
+            'alias' => 'required',
+
+            ]);
+
+        $types = Type::findOrFail($id);
+        if($types)
+        {
+            $types->fill($request->all());
+            $types->save();
+        }
     }
 
     /**
@@ -79,6 +114,7 @@ class TypesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Types::where('id',$id);->delete();
+        return ($errors);
     }
 }
