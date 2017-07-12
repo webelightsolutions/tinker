@@ -12,7 +12,7 @@ class Lookup extends Model
 
     public function type()
     {
-    	return $this->belongTo('\App\Type','type_id');
+    	return $this->belongsTo('\App\Type','type_id');
 
     }
 }
