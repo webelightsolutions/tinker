@@ -6,6 +6,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use App\Customer;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
 
 class CustomersController extends Controller
 {
@@ -16,7 +17,8 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        $customers = Customer::get()->toArray();
+        $customers = Customer::get();
+        return Response::json($customers, 200);
         return view('customer.index',compact('customers'));
     }
 
@@ -69,7 +71,7 @@ class CustomersController extends Controller
      */
     public function show($id)
     {
-        $customer= Customer::find($id);
+        $customer = Customer::find($id);
         return view('customer.show',compact('customer'));
     }
 
@@ -81,7 +83,7 @@ class CustomersController extends Controller
      */
     public function edit($id)
     {
-        $customer= Customer::findOrFail($id);
+        $customer = Customer::findOrFail($id);
         return view('customer.edit',compact('customer'));
     }
 

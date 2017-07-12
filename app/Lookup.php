@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\BaseModel;
 
-class Lookup extends Model
+class Lookup extends BaseModel
 {
    protected $fillable = [
        	'type_id', 'name'

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
 use App\Type;
 
 class TypesController extends Controller
@@ -14,21 +16,10 @@ class TypesController extends Controller
      */
     public function index()
     {
-        $types = Type::with('lookups')->get()->toArray();
-        dd()
-        
-        return view('types.index',compact('types'));
+        $types = Type::with('lookups')->get();    
+        return Response::json($types, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('type.create');
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -38,30 +29,20 @@ class TypesController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:50|unique:types',
+            'alias' => 'required|max:50|unique:types'
+        ]);
 
-
-        $validator = Validator::make($request->all(),[
-
-            'name' => 'required',
-
-            'alias' => 'required',
-
-            ]);
-
-
-        if ($validator->fails()) 
-            {
-
-                return redirect('/')
-                    ->withInput()
-                    ->withErrors($validator);
-             }
+        if ($validator->fails()) {
+            return Response::json($validator->errors(), 422);
+        }
 
         Type::create($request->all());
-
-       return redirect ('type.create');
-
+        return Response::json(['description' => 'Type has been stored successfully.'], 200);
     }
+
 
     /**
      * Display the specified resource.
@@ -72,8 +53,9 @@ class TypesController extends Controller
     public function show($id)
     {
         $type = Type::findOrFail($id);
-        return view('type.show', compact('type'));
+        return Response::json($type, 200);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -84,8 +66,9 @@ class TypesController extends Controller
     public function edit($id)
     {
         $type = Type::findOrFail($id);
-        return view('type.edit', compact('type'));
+        return Response::json($type, 200);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -96,25 +79,26 @@ class TypesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:50',
+            'alias' => 'required|max:50'
+        ]);
 
-            'name' => 'required',
-
-            'alias' => 'required',
-
-            ]);
+        if ($validator->fails()) {
+            return Response::json($validator->errors(), 422);
+        } 
 
         $type = Type::find($id);
-        if($type)
-        {
+
+        if ($type) {
             $type->fill($request->all());
-            $types->save();
-        }
-        else
-        {
-            return($error);
+            $type->save();
+            return Reponse::json(['description' => 'Type has been updated successfully.'], 200);
+        } else {
+            return Response::json(['description' => 'Type details not found', 404]);
         }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -124,7 +108,7 @@ class TypesController extends Controller
      */
     public function destroy($id)
     {
-        Type::where('id',$id);->delete();
-        return ($errors);
-    }
+        Type::where('id', $id)->delete();
+        return Response::json(['description' => 'Type Details Delete successfully.'], 200);
+}
 }

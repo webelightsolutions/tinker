@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
 use App\Lookup;
 
 class LookupsController extends Controller
@@ -14,21 +16,11 @@ class LookupsController extends Controller
      */
     public function index()
     {
-        $lookups = Lookup::with('types')->get()->toArray();
-        dd($lookups);
-        return view('lookups.index',compact('lookups'));
+        $lookups = Lookup::with('types')->get();
+        return Response::json($lookups, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('lookup.create');
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -37,29 +29,19 @@ class LookupsController extends Controller
      */
     public function store(Request $request)
     {
-
-        $validator = Validator::make($request->all(),[
-
+        $validator = Validator::make($request->all(), [
             'type_id' => 'required',
+            'name' => 'required|max:50'
+        ]);
 
-            'name' => 'required',
-
-            ]);
-
-
-       if ($validator->fails()) 
-            {
-
-                return redirect('/')
-                    ->withInput()
-                    ->withErrors($validator);
-             }
+        if ($validator->fails()) {
+            return Response::json($validator->errors(), 422);
+        }
 
         Lookup::create($request->all());
-
-       return redirect ('lookup.create');
-
+        return Reponse::json(['description' => 'Lookups has been stored successfully.'], 200);
     }
+
 
     /**
      * Display the specified resource.
@@ -70,8 +52,9 @@ class LookupsController extends Controller
     public function show($id)
     {
         $lookup = Lookup::findOrFail($id);
-        return view('lookup.show', compact('lookup'));
+        return Response::json($lookup, 200);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -82,8 +65,9 @@ class LookupsController extends Controller
     public function edit($id)
     {
         $lookup = Lookup::findOrFail($id);
-        return view('lookup.edit', compact('lookup'));
+        return Response::json($lookup, 200);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -94,27 +78,26 @@ class LookupsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
-
+        $validator = Validator::make($request->all(), [
             'type_id' => 'required',
+            'name' => 'required|max:50'
+        ]);
 
-            'name' => 'required',
-
-            'value' => 'require'
-
-            ]);
+        if ($validator->fails()) {
+           return Response::json($validator->errors(), 422);
+        }
 
         $lookups = Lookup::find($id);
-        if($lookups)
-        {
-            $lookups->fill($request->all);
+
+        if ($lookups) {
+            $lookups->fill($request->all());
             $lookups->save();
-        }
-        else
-        {
-            return($error);
+            return Reponse::json(['description' => 'Lookups has been updated successfully.'], 200);
+        } else {
+            return Response::json(['description' => 'Lookups details not found'], 404);
         }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -125,6 +108,6 @@ class LookupsController extends Controller
     public function destroy($id)
     {
         Lookup::where('id',$id)->delete();
-        return redirect('lookup');
+        return Response::json(['description' => 'Lookup Details Delete successfully.'], 200);
     }
 }
