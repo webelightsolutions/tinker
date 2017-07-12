@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Lookup;
 
 class LookupsController extends Controller
 {
@@ -13,7 +14,7 @@ class LookupsController extends Controller
      */
     public function index()
     {
-        $lookups = Lookup::with('type_id','name')->get()->toArray();
+        $lookups = Lookup::with('types')->get()->toArray();
         dd($lookups);
         return view('lookups.index',compact('lookups'));
     }
@@ -44,6 +45,15 @@ class LookupsController extends Controller
             'name' => 'required',
 
             ]);
+
+
+       if ($validator->fails()) 
+            {
+
+                return redirect('/')
+                    ->withInput()
+                    ->withErrors($validator);
+             }
 
         Lookup::create($request->all());
 
@@ -94,11 +104,15 @@ class LookupsController extends Controller
 
             ]);
 
-        $lookups = Lookup::findOrFail($id);
+        $lookups = Lookup::find($id);
         if($lookups)
         {
             $lookups->fill($request->all);
             $lookups->save();
+        }
+        else
+        {
+            return($error);
         }
     }
 

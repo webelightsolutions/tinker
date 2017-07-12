@@ -12,7 +12,7 @@ class Type extends Model
 
     public function lookups()
     {
-    	return $this->hasMany('Lookup');
+    	return $this->hasMany('\App\Lookup');
 
     }
 }

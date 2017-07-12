@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Type;
 
 class TypesController extends Controller
 {
@@ -13,7 +14,8 @@ class TypesController extends Controller
      */
     public function index()
     {
-        $types = Type::with('name','alias')->get()->toArray();
+        $types = Type::with('lookups')->get()->toArray();
+        dd()
         
         return view('types.index',compact('types'));
     }
@@ -37,25 +39,29 @@ class TypesController extends Controller
     public function store(Request $request)
     {
 
-        $lookup = new App\Lookup();
 
-        $type = App\Type::find(1);
+        $validator = Validator::make($request->all(),[
 
-        $type->lookups()->save($lookup);
+            'name' => 'required',
 
-    //     $validator = Validator::make($request->all(),[
+            'alias' => 'required',
 
-    //         'name' => 'required',
+            ]);
 
-    //         'alias' => 'required',
 
-    //         ]);
+        if ($validator->fails()) 
+            {
 
-    //     Type::create($request->all());
+                return redirect('/')
+                    ->withInput()
+                    ->withErrors($validator);
+             }
 
-    //    return redirect ('type.create');
+        Type::create($request->all());
 
-    // }
+       return redirect ('type.create');
+
+    }
 
     /**
      * Display the specified resource.
@@ -98,11 +104,15 @@ class TypesController extends Controller
 
             ]);
 
-        $types = Type::findOrFail($id);
-        if($types)
+        $type = Type::find($id);
+        if($type)
         {
-            $types->fill($request->all());
+            $type->fill($request->all());
             $types->save();
+        }
+        else
+        {
+            return($error);
         }
     }
 
@@ -114,7 +124,7 @@ class TypesController extends Controller
      */
     public function destroy($id)
     {
-        Types::where('id',$id);->delete();
+        Type::where('id',$id);->delete();
         return ($errors);
     }
 }
