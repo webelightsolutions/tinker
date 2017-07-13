@@ -53,7 +53,6 @@ Route::get('product/{id}/', '\App\Http\Controllers\ProductsController@show');
 // Route::get('/test', function () {
 //     return view('welcome');
 // });
-Route::get('/test','\App\Http\Controllers\OrdersController@index');
 
 // Type route
 Route::get('type', '\App\Http\Controllers\TypesController@index');

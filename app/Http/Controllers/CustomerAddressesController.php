@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class CutomerAddressesController extends Controller
+
+
+class CustomerAddressesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +15,8 @@ class CutomerAddressesController extends Controller
      */
     public function index()
     {
-        //
-    }
+       
+    } 
 
     /**
      * Show the form for creating a new resource.
@@ -34,7 +36,44 @@ class CutomerAddressesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         //save metohd
+
+        $address = new App\CustomerAddress($request->get('address'));
+
+        $customer = App\Customer::find(1);
+
+        $customer->customerAddresses()->save($customer);
+
+        //saveMany method
+
+        $customer = App\Customer::find(1);
+
+        $customer->customerAddresses()->saveMany([
+            new App\CustomerAddress(['address' => 'bhe bhebhe v bhe bhe bhe']),
+            new App\CustomerAddress(['address' => 'Another comment.']),
+        ]);
+
+
+        //CreateMethod
+
+        $customer = App\Customer::find(1);
+
+        $address = $customer->customerAddresses()->create([
+            'address' => 'A new comment mbfdbfblmp.',
+        ]);
+
+        //createMany Method
+        $customer = App\Customer::find(1);
+
+        $customer->customerAddresses()->createMany([
+            [
+                'address' => 'A last comment.',
+            ],
+            [
+                'address' => 'Another last comment.',
+            ],
+        ]);
+ 
     }
 
     /**
