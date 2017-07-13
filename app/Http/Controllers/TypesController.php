@@ -93,7 +93,7 @@ class TypesController extends Controller
         if ($type) {
             $type->fill($request->all());
             $type->save();
-            return Reponse::json(['description' => 'Type has been updated successfully.'], 200);
+            return Response::json(['description' => 'Type has been updated successfully.'], 200);
         } else {
             return Response::json(['description' => 'Type details not found', 404]);
         }

@@ -39,7 +39,7 @@ class LookupsController extends Controller
         }
 
         Lookup::create($request->all());
-        return Reponse::json(['description' => 'Lookups has been stored successfully.'], 200);
+        return Response::json(['description' => 'Lookups has been stored successfully.'], 200);
     }
 
 
@@ -92,7 +92,7 @@ class LookupsController extends Controller
         if ($lookups) {
             $lookups->fill($request->all());
             $lookups->save();
-            return Reponse::json(['description' => 'Lookups has been updated successfully.'], 200);
+            return Response::json(['description' => 'Lookups has been updated successfully.'], 200);
         } else {
             return Response::json(['description' => 'Lookups details not found'], 404);
         }

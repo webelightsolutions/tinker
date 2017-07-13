@@ -59,7 +59,7 @@ Route::get('/test','\App\Http\Controllers\OrdersController@index');
 Route::get('type', '\App\Http\Controllers\TypesController@index');
 Route::get('type/{edit}/edit', '\App\Http\Controllers\TypesController@edit'); 
 Route::post('type', '\App\Http\Controllers\TypesController@store'); 
-Route::delete('type/{types}', '\App\Http\Controllers\TypesController@destroy');
+Route::delete('type/{id}', '\App\Http\Controllers\TypesController@destroy');
 Route::put('type/{id}', '\App\Http\Controllers\TypesController@update'); 
 Route::get('type/{id}/', '\App\Http\Controllers\TypesController@show');
 
@@ -67,6 +67,6 @@ Route::get('type/{id}/', '\App\Http\Controllers\TypesController@show');
 Route::get('lookup', '\App\Http\Controllers\LookupsController@index');
 Route::get('lookup/{edit}/edit', '\App\Http\Controllers\LookupsController@edit'); 
 Route::post('lookup', '\App\Http\Controllers\LookupsController@store'); 
-Route::delete('lookup/{lookups}', '\App\Http\Controllers\LookupsController@destroy');
+Route::delete('lookup/{id}', '\App\Http\Controllers\LookupsController@destroy');
 Route::put('lookup/{id}', '\App\Http\Controllers\LookupsController@update'); 
 Route::get('lookup/{id}/', '\App\Http\Controllers\LookupsController@show');
